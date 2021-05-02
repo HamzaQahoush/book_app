@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 });
 app.post('/searches', searchHandler);
 
+//search function
 function searchHandler(req, res) {
   let url;
   let input = req.body.search;
