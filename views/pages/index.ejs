@@ -15,5 +15,16 @@
       <a class="search" href="/searches/new"> search for Book</a>
       <a class="home" href="/">Home</a>
     </nav>
+    <main>
+      <p>Total Books: <%= bookList.length %></p>
+      <% booklist.forEach(book => {%>
+      <section class="bookCard">
+        <img src="<%= book.image %>" />
+        <h2><%=book.title %></h2>
+        <h3><%= book.authors %></h3>
+        <p><%= book.description %></p>
+      </section>
+      <%})%>
+    </main>
   </body>
 </html>
