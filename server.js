@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 const superagent = require('superagent');
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 // routes
 app.get('/', homePage);
@@ -21,8 +23,8 @@ app.get('/new', formSearch);
 app.post('/searches', searchResult);
 app.get('/books/:bookID', bookDetails);
 app.post('/books', addBook);
-app.put('/updateBook/:id', editBook);
-app.delete('/deleteBook/:id', deleteBook);
+app.put('/books/:bookID', editBook);
+app.delete('/books/:bookID', deleteBook);
 
 function homePage(req, res) {
   let SQL = `SELECT * FROM booklist;`;
@@ -88,13 +90,13 @@ function addBook(req, res) {
 }
 
 function Book(data) {
-  this.title = data.volumeInfo.title || 'not available';
+  this.title = data.volumeInfo.title || ' title not available';
   this.authors =
     data.volumeInfo.author !== undefined
       ? data.volumeInfo.authors
-      : 'not available';
-  this.description = data.volumeInfo.description || 'not available';
-  this.img = data.volumeInfo.imageLinks.thumbnail || 'not available';
+      : 'authors not available';
+  this.description = data.volumeInfo.description || 'description not available';
+  this.img = data.volumeInfo.imageLinks.thumbnail || 'image not available';
   this.isbn = data.volumeInfo.industryIdentifiers
     ? data.volumeInfo.industryIdentifiers[0].identifier
     : `Unknown ISBN`;
@@ -102,18 +104,16 @@ function Book(data) {
 }
 
 function editBook(req, res) {
-  let { img, title, author, isbn, bookshelf, description } = req.body;
   console.log(req.body);
-  let SQL =
-    'UPDATE booklist SET img=$1,title=$2,author=$3,isbn=$4,bookshelf=$5,description=$6 WHERE id=$7;';
+  let SQL = `UPDATE booklist SET title=$1, author=$2, description=$3, img=$4, isbn=$5, shelf=$6 WHERE id=$7;`;
   let safeValues = [
-    img,
-    title,
-    author,
-    isbn,
-    bookshelf,
-    description,
-    req.params.id,
+    req.body.title,
+    req.body.author,
+    req.body.description,
+    req.body.img,
+    req.body.isbn,
+    req.body.shelf,
+    req.params.bookID,
   ];
   client
     .query(SQL, safeValues)
@@ -126,8 +126,8 @@ function editBook(req, res) {
 }
 
 function deleteBook(req, res) {
-  let SQL = 'DELETE FROM books WHERE id=$1;';
-  let safeValue = [req.params.id];
+  let SQL = `DELETE FROM booklist WHERE id=$1;`;
+  let safeValue = [req.params.bookID];
   client
     .query(SQL, safeValue)
     .then(() => {

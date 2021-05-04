@@ -4,28 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+
     <link rel="stylesheet" href="../styles/style.css" />
     <title>Book App</title>
   </head>
 
   <body>
+    <nav>
+      <a href="/new"> Search For Book</a>
+      <a href="/"> Home</a>
+    </nav>
     <main>
-      <p>Total Books: <%= booklist.length %></p>
+      <p class="total">Total Books: <%= booklist.length %></p>
       <% booklist.forEach(book=> { %>
       <div class="card">
         <img src="<%=book.img %>" alt="Book Cover" />
         <h2><%= book.title %></h2>
         <h3><%= book.author %></h3>
-        <a href="/books/<%= book.id %>">View Details</a>
+        <div class="viewDetails">
+          <a href="/books/<%= book.id %>">View Details</a>
+        </div>
       </div>
       <% }) %>
     </main>

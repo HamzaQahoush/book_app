@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <title>Book App</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png"
-    type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../styles/style.css">
-  <title>Book App</title>
-</head>
-
-<body>
-  <main>
-
-    <% books.forEach(book=>{ %>
+  <body>
+    <main>
+      <nav>
+        <a href="/new"> Search For Book</a>
+        <a href="/"> Home</a>
+      </nav>
+      <% books.forEach(book=>{ %>
       <div class="card">
-        <img src='<%=book.img %>' alt="Book Cover">
-        <h2>
-          <%= book.title %>
-        </h2>
-        <h3>
-          <%= book.author %>
-        </h3>
-        <p class="description">
-          <%= book.description %>
-        </p>
-        <form action='/books' method="POST">
-          <input name="title" value="<%= book.title %>" class="hidden">
-          <input name="author" value="<%= book.author %>" class="hidden">
-          <input name="description" value="<%= book.description %>" class="hidden">
-          <input name="img" value="<%= book.img %>" class="hidden">
-          <input name="isbn" value="<%= book.isbn %>" class="hidden">
-          <input name="shelf" value="<%= book.shelf %>" class="hidden">
-          <button type="submit">Select This Book</button>
+        <img src="<%=book.img %>" alt="Book Cover" />
+        <h2><%= book.title %></h2>
+        <h3><%= book.author %></h3>
+        <p class="description"><%= book.description %></p>
+        <form action="/books" method="POST">
+          <input name="title" type="hidden" value="<%= book.title %>" />
+          <input name="author" type="hidden" value="<%= book.author %>" />
+          <input
+            name="description"
+            type="hidden"
+            value="<%= book.description %>"
+          />
+          <input name="img" type="hidden" value="<%= book.img %>" />
+          <input name="isbn" type="hidden" value="<%= book.isbn %>" />
+          <input name="shelf" type="hidden" value="<%= book.shelf %>" />
+          <button class="btnSubmit" type="submit">Select This Book</button>
         </form>
       </div>
       <% }) %>
-
-  </main>
-</body>
-
+    </main>
+  </body>
 </html>
