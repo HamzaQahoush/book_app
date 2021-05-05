@@ -4,16 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/style.css" />
 
-    <title>home</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <title>Book App</title>
   </head>
-  <body>
-    <h1>Hello world</h1>
 
+  <body>
     <nav>
-      <a class="search" href="/searches/new"> search for Book</a>
-      <a class="home" href="/">Home</a>
+      <a href="/new"> Search For Book</a>
+      <a href="/"> Home</a>
     </nav>
+    <main>
+      <p class="total">Total Books: <%= booklist.length %></p>
+      <% booklist.forEach(book=> { %>
+      <div class="card">
+        <img src="<%=book.img %>" alt="Book Cover" />
+        <h2><%= book.title %></h2>
+        <h3><%= book.author %></h3>
+        <div class="viewDetails">
+          <a href="/books/<%= book.id %>">View Details</a>
+        </div>
+      </div>
+      <% }) %>
+    </main>
   </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://www.freeiconspng.com/uploads/book-icon--icon-search-engine-6.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/style.css" />
+  
+    <title>Book App</title>
+  </head>
+
+  <body>
+    <nav>
+      <a href="/new"> Search For Book</a>
+      <a href="/"> Home</a>
+    </nav>
+    <main>
+      <section class="card">
+        <img src="<%=book.img %>" alt="Book Cover" />
+        <h2><%= book.title %></h2>
+        <h3><%= book.author %></h3>
+        <p class="description"><%= book.description %></p>
+        <p>ISBN: <%= book.isbn %></p>
+        <p>Bookshelf: <%= book.shelf %></p>
+      </section>
+      <form action="/updateBook/<%=book.id%>?_method=put" method="POST">
+        <input type="text" name="url" value="<%= book.url %>" />
+
+        <input type="text" name="title" value="<%= book.title %>" />
+
+        <input type="text" name="author" value="<%= book.author %>" />
+
+        <input type="text" name="isbn" value="<%= book.isbn %>" />
+        <input type="text" name="bookshelf" value="<%= book.bookshelf %>" />
+
+        <textarea name="description" cols="30" rows="10">
+          <%= book.description %></textarea>
+        
+        <button type="submit">Update Book</button>
+      
+    </main>
+ 
+  </body>
+</html>
